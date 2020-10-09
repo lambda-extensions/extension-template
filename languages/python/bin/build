@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+[ -d layer ] && rm -rf layer
+
+poetry export -f requirements.txt --output requirements.txt
+
+chmod +x src/extensions/RENAME
+chmod +x src/RENAME/extension.py
+
+mkdir -p layer/
+
+cp -R src/extensions layer/
+cp -R src/RENAME layer/
+
+pip install -r requirements.txt -t layer/RENAME
